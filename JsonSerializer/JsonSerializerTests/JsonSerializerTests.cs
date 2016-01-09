@@ -39,10 +39,25 @@ namespace JsonSerializerTests
         }
 
 
-        [SerializeableAttribute()]
+        [Serializable]
         class SerializeablePerson
         {
-            
+            public string x;
+            public int y;
+            public int[] m;
+
+            public SerializeablePerson(string x, int y, int[] m)
+            {
+                this.x = x;
+                this.y = y;
+                this.m = m;
+            }
+        }
+
+        [Test]
+        public void ClassSerialization()
+        {
+            Console.Out.WriteLine(serializer.Serialize(new SerializeablePerson("asdf", 3, new int[] {3, 4, 5})));
         }
 
 //        [Test]
