@@ -43,6 +43,7 @@ namespace JsonSerializerTests
         class SerializeablePerson
         {
             public string x;
+            [NonSerialized]
             public int y;
             public int[] m;
 
@@ -54,27 +55,21 @@ namespace JsonSerializerTests
             }
         }
 
+        //Just don't want to write...
         [Test]
         public void ClassSerialization()
         {
-            Console.Out.WriteLine(serializer.Serialize(new SerializeablePerson("asdf", 3, new int[] {3, 4, 5})));
+            var serializeablePerson = new SerializeablePerson("asdf", 3, new int[] {3, 4, 5});
+            Console.Out.WriteLine(serializer.Serialize(serializeablePerson));
         }
 
-//        [Test]
-//        public void IntArrayArraySerializationTest()
-//        {
-//            var assembly = Assembly.GetExecutingAssembly();
-//            var stream = assembly.GetManifestResourceStream("JsonSerializerTests.resources.IntArrayArray.json");
-//            string text;
-//            using (var reader = new StreamReader(stream))
-//            {
-//                text = reader.ReadToEnd();
-//            }
-//            string s = serializer.Serialize(new int[][] {new int[] {1, 2}, new int[] {3}});
-//            Console.Out.WriteLine(s);
-//            s
-//                .Should().Be(text);
-//        }
+
+        [Test]
+        public void ClassSerialization2()
+        {
+            var serializeablePersons = new SerializeablePerson[] {new SerializeablePerson("asd", 2, new int[] {123, 12}), new SerializeablePerson("asdasd", 23, new int[] {12,  21})  };
+            Console.Out.WriteLine(serializer.Serialize( serializeablePersons ));
+        }
 
         [Test]
         public void StringArraySerializationTest()
